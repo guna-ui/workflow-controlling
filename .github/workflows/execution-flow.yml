@@ -2,7 +2,7 @@ name: Website Deployment
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
         id : npm-test
         run: npm run test
       - name: Upload test report
-        if : steps.npm-test.outcome=='failure'
+        if : failure() && steps.npm-test.outcome=='failure'
         uses: actions/upload-artifact@v3
         with:
           name: test-report
